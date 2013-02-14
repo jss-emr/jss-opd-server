@@ -1,0 +1,32 @@
+{
+    name: "Social Habits",
+    id: "socialHabitsUUID",
+    properties: {
+        datatype: {
+            name:"treee",
+            properties: {
+                answers: [
+                    {
+                        name: "Smoking",
+                        id: "smokingUUID",
+                        properties: {
+                            datatype: {name:"coded",properties: {answers:[{name:"Habitual",id:"habitualUUID"}]},
+                            conceptClass: "Misc",
+                           }
+                        }
+                    },
+                    {
+                        name: "Drinking",
+                        id: "drinkingUUID",
+                        properties: {
+                            datatype: {name:"coded",properties: {answers:[{name:"Habitual",id:"habitualUUID"}]},
+                                conceptClass: "Misc",
+                        }
+                       }
+                    }
+                ]
+            }
+        },
+        conceptClass: "question",
+    }
+},

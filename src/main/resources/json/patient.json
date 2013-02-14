@@ -1,0 +1,11 @@
+{
+    "firstName": "Ram",
+    "lastName": "Singh",
+    "city": "Ganiari",
+    "state": "Chhattisgarh",
+    "id": "832748934",
+    "age": "38",
+    "weight": "65 Kg",
+    "visits": [{"date": "24-Jan-13"},{"date": "20-Feb-13"}],
+    "image" : "resources/images/headshots/ram.png"
+}

@@ -1,0 +1,36 @@
+[
+    {
+        name: 'Tuberclosis',
+        sections: {
+            examinations: [
+                {conceptName: 'HEIGHT (CM)'},
+                {conceptName: 'WEIGHT (KG)'},
+            ],
+
+            history: [
+                {conceptName: "HIV POSITIVE"},
+            ],
+
+            instructions: [
+                { conceptName: "sputum for acid fast bacilli, zero month"},
+                { conceptName: "RED BLOOD CELLS"},
+            ]
+        }
+    },
+    {
+        name: 'Diabetes',
+        sections: {
+            examinations: [
+                {conceptName: 'HEIGHT (CM)'},
+                {conceptName: 'WEIGHT (KG)'},
+            ],
+
+            history: [
+            ],
+
+            instructions: [
+                { conceptName: "RED BLOOD CELLS"},
+            ]
+        }
+    }
+]

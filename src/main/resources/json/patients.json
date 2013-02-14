@@ -1,0 +1,27 @@
+[
+{
+    "firstName": "Ram",
+    "lastName": "Singh",
+    "city": "Ganiari",
+    "state": "Chhattisgarh",
+    "id": "832748934",
+    "age": "38",
+    "image" : "resources/images/headshots/ram.png"
+}, {
+    "firstName": "Sita",
+    "lastName": "Kumari",
+    "city": "Ganiari",
+    "state": "Chhattisgarh",
+    "id": "832748933",
+    "age": "28",
+    "image" : "resources/images/headshots/sita.png"
+}, {
+    "firstName": "Pinky",
+    "lastName": "Singh",
+    "city": "Ganiari",
+    "state": "Chhattisgarh",
+    "id": "832748932",
+    "age": "4",
+    "image" : "resources/images/headshots/pinky.png"
+}
+]
