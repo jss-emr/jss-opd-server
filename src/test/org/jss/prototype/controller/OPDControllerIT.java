@@ -28,7 +28,7 @@ public class OPDControllerIT {
         //conceptService.createConcept("paracetamol","{name: \"Paracetamol (SYP)\", type: \"SYP\", specs: [\"60ml\"]}","Drug");
 
         MVCTestUtils.mockMvc(controller)
-                .perform(post("/opd/concepts")
+                .perform(post("/concept")
                         .param("name", "para")
                         .param("category", "Drug")
                         .accept(MediaType.APPLICATION_JSON)
