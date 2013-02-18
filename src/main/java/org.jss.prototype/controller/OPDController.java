@@ -1,7 +1,7 @@
 package org.jss.prototype.controller;
 
 import org.apache.log4j.Logger;
-import org.jss.prototype.domain.Concept;
+import org.json.simple.JSONObject;
 import org.jss.prototype.service.ConceptService;
 import org.jss.prototype.service.OPDDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +43,9 @@ public class OPDController {
         return new ResponseEntity<String>(responseHeaders,HttpStatus.OK)  ;
     }
 
-    @RequestMapping(value="/concept", method=RequestMethod.POST,headers="Accept=application/json")
-    public @ResponseBody List<Concept> getConcepts(@RequestParam String name,@RequestParam String category) {
+    @RequestMapping(value="/concept", method=RequestMethod.GET,headers="Accept=application/json")
+    public @ResponseBody
+    List<JSONObject> getConcepts(@RequestParam String name, @RequestParam String category) {
 
         return conceptService.findConcept(name,category);
     }

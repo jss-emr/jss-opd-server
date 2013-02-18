@@ -1,6 +1,7 @@
 package org.jss.prototype.service;
 
 
+import org.json.simple.JSONObject;
 import org.jss.prototype.domain.Concept;
 import org.jss.prototype.repository.AllConcepts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class ConceptService {
     }
 
     @Transactional
-    public List findConcept(String name, String type) {
-       return allConcepts.findByNameAndCategory(name, type);
+    public List<JSONObject> findConcept(String name, String type) {
+       return allConcepts.getConceptJsonsByNameAndCategory(name, type);
 
     }
 
