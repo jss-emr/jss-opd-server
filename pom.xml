@@ -13,6 +13,37 @@
         <jackson.mapper.version>1.9.5</jackson.mapper.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>maven-repo</id>
+            <name> Maven Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <releases>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-repo</id>
+            <name>Spring Maven Repository</name>
+            <url>http://maven.springframework.org/milestone</url>
+            <releases>
+                <updatePolicy>daily</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>JBoss</id>
+            <name>The "public-jboss" repository group provides a combined view all JBoss community project artifacts</name>
+            <layout>default</layout>
+            <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+        </repository>
+    </repositories>
+
     <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -67,6 +98,9 @@
             <version>1.0.0.M1</version>
             <scope>test</scope>
         </dependency>
+
+
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -81,24 +115,24 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
+            <artifactId>hibernate-core</artifactId>
             <version>3.5.1-Final</version>
-
         </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
-            <version>3.3.1.GA</version>
+            <version>3.5.1-Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.1.0.GA</version>
+            <version>3.2.0.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.3.2.GA</version>
+            <version>3.5.1-Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>

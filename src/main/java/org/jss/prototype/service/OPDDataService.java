@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 
 @Service
-@Transactional
 public class OPDDataService {
 
     @Autowired
@@ -25,14 +24,18 @@ public class OPDDataService {
 
     public void setupData() {
         JSONParser parser = new JSONParser();
-        setupDiagnoses(parser);
+        setupDbData(parser,"/json/allDiagnoses.json","Diagnosis");
+        setupDbData(parser,"/json/medicineDetails.json","Medicine");
+        setupDbData(parser,"/json/allInstructions.json","Instruction");
+        setupDbData(parser,"/json/allConcepts.json","Concept");
+        setupDbData(parser,"/json/allExaminations.json","Examination");
     }
 
-    private void setupDiagnoses(JSONParser parser) {
+    private void setupDbData(JSONParser parser,String jsonFileName,String category) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     getClass().getResourceAsStream(
-                            "/json/allDiagnoses.json")));
+                            jsonFileName)));
             Object obj = parser.parse(reader);
             JSONArray jsonArray = (JSONArray)obj;
             Iterator<JSONObject> iterator = jsonArray.iterator();
@@ -40,13 +43,12 @@ public class OPDDataService {
             while (iterator.hasNext()) {
                 JSONObject jsonObject = iterator.next();
                 String name = (String) jsonObject.get("name");
-                concept = new Concept(name,jsonObject.toJSONString(),"Diagnosis");
+                concept = new Concept(name,jsonObject.toJSONString(),category);
                 allConcepts.create(concept);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

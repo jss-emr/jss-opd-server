@@ -1,9 +1,11 @@
 package org.jss.prototype.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "prototype_concept", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@IdClass(GroupFormPk.class)
+@Table(name = "prototype_concept")
 public class Concept {
 
     @Id
@@ -11,6 +13,7 @@ public class Concept {
     private String name;
     @Column(name = "json")
     private String json;
+    @Id
     @Column(name = "category")
     private String category;
 
@@ -44,6 +47,10 @@ public class Concept {
     public void setCategory(String category) {
         this.category = category;
     }
-
-
 }
+
+
+
+
+
+

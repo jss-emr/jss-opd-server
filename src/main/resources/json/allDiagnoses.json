@@ -1079,7 +1079,6 @@
 { "name": "Fetal distress, during labor, in infant", "id": "768.3UUID", "properties":{ "datatype": {"name": "N/A"}, "conceptClass" : "Diagnosis"}},
 { "name": "Hemolysis, ABO isoimmunization", "id": "773.1UUID", "properties":{ "datatype": {"name": "N/A"}, "conceptClass" : "Diagnosis"}},
 { "name": "Hemolysis, RH isoimmunization", "id": "773.0UUID", "properties":{ "datatype": {"name": "N/A"}, "conceptClass" : "Diagnosis"}},
-{ "name": "Hypocalcemia", "id": "775.4UUID", "properties":{ "datatype": {"name": "N/A"}, "conceptClass" : "Diagnosis"}},
 { "name": "Hypoglycemia, neonatal", "id": "775.6UUID", "properties":{ "datatype": {"name": "N/A"}, "conceptClass" : "Diagnosis"}},
 { "name": "Hypoxemia, newborn, NOS", "id": "770.88UUID", "properties":{ "datatype": {"name": "N/A"}, "conceptClass" : "Diagnosis"}},
 { "name": "Infant of diabetic mother syndrome", "id": "775.0UUID", "properties":{ "datatype": {"name": "N/A"}, "conceptClass" : "Diagnosis"}},
