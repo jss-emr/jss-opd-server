@@ -21,11 +21,13 @@ public class ConceptService {
         this.allConcepts = concepts;
     }
 
+    @Transactional
     public void createConcept(String name, String json, String type) {
         allConcepts.create(name,json,type);
 
     }
 
+    @Transactional
     public List findConcept(String name, String type) {
        return allConcepts.findByNameAndCategory(name, type);
 

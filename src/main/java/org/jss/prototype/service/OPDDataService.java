@@ -30,7 +30,7 @@ public class OPDDataService {
         setupDbData(parser,"/json/allConcepts.json","Concept");
         setupDbData(parser,"/json/allExaminations.json","Examination");
     }
-
+    @Transactional
     private void setupDbData(JSONParser parser,String jsonFileName,String category) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(

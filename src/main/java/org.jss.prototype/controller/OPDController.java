@@ -19,16 +19,18 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/opd/**")
+@RequestMapping("/")
 public class OPDController {
 
 
     private static Logger logger =Logger.getLogger("OPDController") ;
     private ConceptService conceptService;
+    private OPDDataService opdDataService;
 
     @Autowired
-    public OPDController(ConceptService conceptService){
+    public OPDController(ConceptService conceptService,OPDDataService opdDataService){
         this.conceptService = conceptService;
+        this.opdDataService = opdDataService;
     }
 
     @RequestMapping(value = "/concept/create", method = RequestMethod.POST,headers="Accept=application/json")
@@ -41,7 +43,7 @@ public class OPDController {
         return new ResponseEntity<String>(responseHeaders,HttpStatus.OK)  ;
     }
 
-    @RequestMapping(value="/concepts", method=RequestMethod.POST,headers="Accept=application/json")
+    @RequestMapping(value="/concept", method=RequestMethod.POST,headers="Accept=application/json")
     public @ResponseBody List<Concept> getConcepts(@RequestParam String name,@RequestParam String category) {
 
         return conceptService.findConcept(name,category);

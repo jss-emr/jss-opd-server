@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class AllConcepts {
+
     @Autowired
     private DataAccessTemplate template;
 
@@ -21,12 +22,14 @@ public class AllConcepts {
         template.saveOrUpdate(concept);
     }
 
+    @Transactional
     public List findByName(String name) {
         String q  = "select concept.json from Concept concept where concept.name LIKE '%"+name+"%' ";
 
         return template.find(q) ;
     }
 
+    @Transactional
     public List findByNameAndCategory(String name, String category) {
         String q  = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '%"+name+"%' ";
         return template.find(q,category);
