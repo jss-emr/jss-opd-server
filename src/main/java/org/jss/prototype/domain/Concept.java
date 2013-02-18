@@ -17,6 +17,8 @@ public class Concept {
     @Column(name = "category")
     private String category;
 
+    public Concept(){}
+
     public Concept(String name, String json, String category) {
         this.name=name;
         this.json=json;

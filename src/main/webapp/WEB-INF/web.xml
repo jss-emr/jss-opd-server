@@ -50,7 +50,7 @@
 
     <!-- Handles Spring requests -->
     <servlet>
-        <servlet-name>motech-whp-reports</servlet-name>
+        <servlet-name>opd-service</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -60,7 +60,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>motech-whp-reports</servlet-name>
+        <servlet-name>opd-service</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
