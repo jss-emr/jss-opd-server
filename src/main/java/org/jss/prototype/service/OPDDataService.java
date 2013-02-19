@@ -19,7 +19,9 @@ public class OPDDataService {
     @Autowired
     private AllConcepts allConcepts;
 
-    public OPDDataService() {
+    @Autowired
+    public OPDDataService(AllConcepts allConcepts) {
+        this.allConcepts = allConcepts;
     }
 
     public void setupData() {

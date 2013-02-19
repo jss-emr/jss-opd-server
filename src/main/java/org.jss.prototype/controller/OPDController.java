@@ -50,10 +50,10 @@ public class OPDController {
         return conceptService.findConcept(name,category);
     }
 
-    @RequestMapping(value="/data/setup", method=RequestMethod.POST,headers="Accept=application/json")
+    @RequestMapping(value="/data/setup", method=RequestMethod.GET,headers="Accept=application/json")
     public @ResponseBody ResponseEntity<String> setup() {
         HttpHeaders responseHeaders = new HttpHeaders();
-        new OPDDataService().setupData();
+        opdDataService.setupData();
         return new ResponseEntity<String>(responseHeaders,HttpStatus.OK)  ;
 
     }

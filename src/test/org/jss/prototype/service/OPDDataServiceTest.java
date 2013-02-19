@@ -16,6 +16,6 @@ public class OPDDataServiceTest {
 
     @Test
     public void testSetupData() throws Exception {
-       // opdDataService.setupData();
+       opdDataService.setupData();
     }
 }
