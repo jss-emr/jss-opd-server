@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -46,8 +48,10 @@ public class OPDController {
     @RequestMapping(value="/concept", method=RequestMethod.GET,headers="Accept=application/json")
     public @ResponseBody
     List<JSONObject> getConcepts(@RequestParam String name, @RequestParam String category) {
-
-        return conceptService.findConcept(name,category);
+        logger.info("Get concepts "+ System.currentTimeMillis());
+        List<JSONObject> concept = conceptService.findConcept(name, category);
+        logger.info("Returning concepts "+ System.currentTimeMillis());
+        return concept;
     }
 
     @RequestMapping(value="/data/setup", method=RequestMethod.GET,headers="Accept=application/json")
