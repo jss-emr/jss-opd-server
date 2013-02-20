@@ -56,15 +56,12 @@ public class AllConcepts {
         else{
         q  = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '%"+name+"%'";
         }
-        logger.info(new Date());
         long startTime = System.currentTimeMillis();
         template.setMaxResults(limitValue);
         List jsonList=template.find(q,category);
         logger.info("Time spent for query " + (System.currentTimeMillis() - startTime));
 
-
         return parseJson(jsonList);
-
     }
 
     private List<JSONObject> parseJson(List jsonList) {
