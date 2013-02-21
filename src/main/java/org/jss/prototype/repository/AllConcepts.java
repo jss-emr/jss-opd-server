@@ -44,13 +44,14 @@ public class AllConcepts {
         return jsonList;
     }
     public @Value("${limitValue}") int limitValue;
+    public @Value("${searchByAlphaLength}") int searchByAlphaLength;
 
     @Transactional
     public List<JSONObject> getConceptJsonsByNameAndCategory(String name, String category) {
         String q="";
 
 
-        if(name.length()<=3){
+        if(name.length()<=searchByAlphaLength){
             q  = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '"+name+"%'";
         }
         else{
@@ -61,7 +62,9 @@ public class AllConcepts {
         List jsonList=template.find(q,category);
         logger.info("Time spent for query " + (System.currentTimeMillis() - startTime));
 
+
         return parseJson(jsonList);
+
     }
 
     private List<JSONObject> parseJson(List jsonList) {
