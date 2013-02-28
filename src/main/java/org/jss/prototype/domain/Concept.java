@@ -1,7 +1,11 @@
 package org.jss.prototype.domain;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
 @Entity
 @IdClass(GroupFormPk.class)
@@ -11,6 +15,8 @@ public class Concept {
     @Id
     @Column(name = "name")
     private String name;
+
+    @Lob
     @Column(name = "json")
     private String json;
     @Id

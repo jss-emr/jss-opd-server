@@ -295,7 +295,6 @@
     { "name": "Pyrazinamide (TAB)", "type": "TAB", "specs": ["500mg", "750mg", "300mg"]},
     { "name": "Pyridoxine (TAB)", "type": "TAB", "specs": ["100mg", "10mg"]},
     { "name": "Quetiapine (TAB)", "type": "TAB", "specs": ["50mg"]},
-    { "name": "Quinine (INJ)", "type": "INJ", "specs": ["2ml"]},
     { "name": "RL", "type": "", "specs": ["500ml"]},
     { "name": "Rabipur", "type": "INJ", "specs": []},
     { "name": "Ranitidine (INJ)", "type": "INJ", "specs": ["25mg"]},
@@ -365,4 +364,15 @@
     { "name": "Warfarin (TAB)", "type": "TAB", "specs": ["1mg", "2mg", "5mg"]},
     { "name": "Xylocaine Ointment (OINT)", "type": "OINT", "specs": ["5%"]},
     { "name": "Zincovit (SYP)", "type": "SYP", "specs": ["200ml"]},
+    { "name": "Quinine (INJ)", 
+      "type": "INJ",
+      "specs": ["2ml"],
+      "instructions": [
+        {"name": "Salt", "properties": {"type": "coded", "values": ["hydrochloride", "dihydrochloride", "sulfate", "bisulfate", "gluconate"]}},
+        {"name": "Maintainance Dose Strength", "properties": {"type": "text"}},
+        {"name": "Drop Rate", "properties": {"type": "number"}},
+        {"name": "Time frame", "properties": {"type": "duration"}},
+        {"name": "Maintainance Dose Interval", "properties": {"type": "duration"}},
+      ]
+    },
 ]
