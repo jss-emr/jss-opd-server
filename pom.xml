@@ -214,6 +214,12 @@
                   <target>1.7</target>
               </configuration>
           </plugin>
+
+          <plugin>
+              <groupId>org.mortbay.jetty</groupId>
+              <artifactId>maven-jetty-plugin</artifactId>
+              <version>6.1.10</version>
+          </plugin>
       </plugins>
     <finalName>opd-service</finalName>
   </build>

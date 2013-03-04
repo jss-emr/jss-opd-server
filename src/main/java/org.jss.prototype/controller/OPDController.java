@@ -34,13 +34,13 @@ public class OPDController {
     }
 
     @RequestMapping(value = "/concept/create", method = RequestMethod.POST,headers="Accept=application/json")
-    public @ResponseBody ResponseEntity<String> createConcept(@RequestParam String name, @RequestParam String json,@RequestParam String type) throws IOException {
+    public String createConcept(@RequestParam String name, @RequestParam String json,@RequestParam String type) throws IOException {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         conceptService.createConcept(name,json,type);
 
-        return new ResponseEntity<String>(responseHeaders,HttpStatus.OK)  ;
+        return "redirect:/";
     }
 
     @RequestMapping(value="/concept", method=RequestMethod.GET,headers="Accept=application/json")
