@@ -38,7 +38,7 @@ public class OPDController {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-        conceptService.createConcept(name,json,type);
+        conceptService.createOrUpdateConcept(name, json, type);
 
         return "redirect:/";
     }

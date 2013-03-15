@@ -25,7 +25,7 @@ public class OPDControllerIT {
     @Test
     public void shouldReturnConceptsFilteredByNameAndCategory() throws Exception {
 
-        //conceptService.createConcept("paracetamol","{name: \"Paracetamol (SYP)\", type: \"SYP\", specs: [\"60ml\"]}","Drug");
+        //conceptService.createOrUpdateConcept("paracetamol","{name: \"Paracetamol (SYP)\", type: \"SYP\", specs: [\"60ml\"]}","Drug");
 
         MVCTestUtils.mockMvc(controller)
                 .perform(post("/concept")

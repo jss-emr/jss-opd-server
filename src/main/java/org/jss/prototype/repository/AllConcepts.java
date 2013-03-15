@@ -1,6 +1,8 @@
 package org.jss.prototype.repository;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.classic.Session;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -21,12 +23,23 @@ public class AllConcepts {
     @Autowired
     private DataAccessTemplate template;
 
-    public void create(String name, String json, String category) {
-        create(new Concept(name,json,category));
+    public void createOrUpdate(String name, String json, String category) {
+        createOrUpdate(new Concept(name,json,category));
     }
 
     public void create(Concept concept) {
         template.saveOrUpdate(concept);
+    }
+
+    public void createOrUpdate(Concept concept) {
+        List<Concept> existingConcepts = this.findByNameAndCategory(concept.getName(), concept.getCategory());
+        if(existingConcepts.isEmpty()) {
+            template.saveOrUpdate(concept);
+        } else {
+            Concept existingConcept = existingConcepts.get(0);
+            existingConcept.setJson(concept.getJson());
+            template.saveOrUpdate(existingConcept);
+        }
     }
 
     @Transactional
@@ -38,10 +51,12 @@ public class AllConcepts {
 
     @Transactional
     public List<Concept> findByNameAndCategory(String name, String category) {
-        String q  = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '%"+name+"%'";
-        List jsonList=template.find(q,category);
+        Session session = template.getSessionFactory().getCurrentSession();
+        Query query = session.createQuery("from Concept where category = :category and name = :name");
+        query.setParameter("category", category);
+        query.setParameter("name", name);
 
-        return jsonList;
+        return query.list();
     }
     public @Value("${limitValue}") int limitValue;
     public @Value("${searchByAlphaLength}") int searchByAlphaLength;

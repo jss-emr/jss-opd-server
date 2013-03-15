@@ -23,8 +23,8 @@ public class ConceptService {
     }
 
     @Transactional
-    public void createConcept(String name, String json, String type) {
-        allConcepts.create(name,json,type);
+    public void createOrUpdateConcept(String name, String json, String type) {
+        allConcepts.createOrUpdate(name, json, type);
 
     }
 
