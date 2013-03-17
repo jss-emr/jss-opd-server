@@ -1,5 +1,6 @@
 package org.jss.prototype.service;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 
 @Service
 public class OPDDataService {
+    private static Logger logger =Logger.getLogger("OPDDataService") ;
 
     @Autowired
     private AllConcepts allConcepts;
@@ -45,7 +47,14 @@ public class OPDDataService {
             while (iterator.hasNext()) {
                 JSONObject jsonObject = iterator.next();
                 String name = (String) jsonObject.get("name");
+
+                if (name == null || name.trim().length() == 0) {
+                    logger.warn(String.format("No name found for category:%s %s", category, jsonObject.toJSONString()));
+                    continue;
+
+                }
                 concept = new Concept(name,jsonObject.toJSONString(),category);
+
                 allConcepts.create(concept);
             }
 
