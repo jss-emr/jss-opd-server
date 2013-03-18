@@ -21,8 +21,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class OPDController {
-
-
     private static Logger logger =Logger.getLogger("OPDController") ;
     private ConceptService conceptService;
     private OPDDataService opdDataService;
@@ -59,10 +57,6 @@ public class OPDController {
         return new ResponseEntity<String>(responseHeaders,HttpStatus.OK)  ;
 
     }
-
-
-
-
 }
 
 

@@ -16,12 +16,17 @@ class ConceptAnswer < ActiveRecord::Base
   self.table_name = "concept_answer"
 end
 
-history_class_id = [1, 5, 7, 11, 12, 13, 20, 22]
-Diagnosis = [4]
-Instructions = [1, 2, 22]
+class PrototypeConcept < ActiveRecord::Base
+  self.table_name = "prototype_concept"
+end
 
 
-sql = <<-STR
+@history = [1, 4, 5, 7, 11, 12, 13, 20, 22]
+@diagnosis = [4]
+@instructions = [1, 2, 22]
+
+
+@sql = <<-STR
 select 
     concept.concept_id as concept_id,
     concept_name.name as concept_name,
@@ -33,11 +38,10 @@ select
   left join concept_class on concept_class.concept_class_id = concept.class_id
   where
     concept.retired = 0
-    and concept.class_id in (4)
-    and concept.concept_id not in (select answer_concept from concept_answer)
+    and concept.class_id in (?)
 STR
 
-answer_sql = <<-STR
+@answer_sql = <<-STR
   select concept_answer.concept_id as concept_id, 
     cn1.name as answer, 
     cn2.name as cname
@@ -50,20 +54,56 @@ answer_sql = <<-STR
     and concept_answer.concept_id = ?;
 STR
 
-x = Concept.find_by_sql(sql).map do |concept|
-  datatype_prop = {}
+def putjson(ids, filename, include_props = true)
+  json = Concept.find_by_sql([@sql, ids]).map do |concept|
+    datatype_prop = {}
 
-  if(concept.datatype == "Coded")
-    answers = ConceptAnswer.find_by_sql([answer_sql, concept.concept_id])
-    datatype_prop.merge!(:answers => answers.collect {|c| {:name => c.answer}})
+    if(concept.datatype == "Coded")
+      answers = ConceptAnswer.find_by_sql([@answer_sql, concept.concept_id])
+      datatype_prop.merge!(:answers => answers.collect {|c| {:name => c.answer}})
+    end
+
+    datatype = include_props ? concept.datatype : "N/A"
+
+    {
+      :name => concept.concept_name,
+      :id => concept.concept_id,
+      :conceptClass => concept.class_name,
+      :properties => {:datatype => {:name => datatype, :properties => datatype_prop}}
+    }.to_json + ",\n"
   end
 
-  {
-    :name => concept.concept_name,
-    :id => concept.concept_id,
-    :conceptClass => concept.class_name,
-    :properties => {:datatype => {:name => concept.datatype, :properties => datatype_prop}}
-  }.to_json + ",\n"
+  File.open(filename, "w") do |f|
+    f.puts "["
+    f.puts json
+    f.puts "]"
+  end
 end
 
-puts x
+
+putjson(@history, "history.json")
+puts "history done"
+
+putjson(@instructions, "instructions.json", false)
+puts "instructions done"
+
+putjson(@diagnosis, "diagnosis.json")
+puts "diagnosis done"
+
+# x = Concept.find_by_sql(sql).map do |concept|
+#   datatype_prop = {}
+
+#   if(concept.datatype == "Coded")
+#     answers = ConceptAnswer.find_by_sql([answer_sql, concept.concept_id])
+#     datatype_prop.merge!(:answers => answers.collect {|c| {:name => c.answer}})
+#   end
+
+#   {
+#     :name => concept.concept_name,
+#     :id => concept.concept_id,
+#     :conceptClass => concept.class_name,
+#     :properties => {:datatype => {:name => concept.datatype, :properties => datatype_prop}}
+#   }.to_json + ",\n"
+# end
+
+# puts x

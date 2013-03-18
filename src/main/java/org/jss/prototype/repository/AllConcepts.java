@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -24,7 +26,7 @@ public class AllConcepts {
     private DataAccessTemplate template;
 
     public void createOrUpdate(String name, String json, String category) {
-        createOrUpdate(new Concept(name,json,category));
+        createOrUpdate(new Concept(name, json, category));
     }
 
     public void create(Concept concept) {
@@ -33,7 +35,7 @@ public class AllConcepts {
 
     public void createOrUpdate(Concept concept) {
         List<Concept> existingConcepts = this.findByNameAndCategory(concept.getName(), concept.getCategory());
-        if(existingConcepts.isEmpty()) {
+        if (existingConcepts.isEmpty()) {
             template.saveOrUpdate(concept);
         } else {
             Concept existingConcept = existingConcepts.get(0);
@@ -44,9 +46,9 @@ public class AllConcepts {
 
     @Transactional
     public List findByName(String name) {
-        String q  = "select concept.json from Concept concept where concept.name LIKE '%"+name+"%'";
+        String q = "select concept.json from Concept concept where concept.name LIKE '%" + name + "%'";
 
-        return template.find(q) ;
+        return template.find(q);
     }
 
     @Transactional
@@ -58,26 +60,31 @@ public class AllConcepts {
 
         return query.list();
     }
-    public @Value("${limitValue}") int limitValue;
-    public @Value("${searchByAlphaLength}") int searchByAlphaLength;
+
+    public
+    @Value("${limitValue}")
+    int limitValue;
+    public
+    @Value("${searchByAlphaLength}")
+    int searchByAlphaLength;
 
     @Transactional
     public List<JSONObject> getConceptJsonsByNameAndCategory(String name, String category) {
-        String q="";
-
-
-        if(name.length()<=searchByAlphaLength){
-            q  = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '"+name+"%'";
-        }
-        else{
-        q  = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '%"+name+"%'";
-        }
+        String q = "";
         long startTime = System.currentTimeMillis();
         template.setMaxResults(limitValue);
-        List jsonList=template.find(q,category);
+
+        List jsonList;
+        if (name.length() <= searchByAlphaLength) {
+            q = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '" + name + "%'";
+            jsonList = template.find(q, category);
+        } else {
+            q = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '" + name + "%'";
+            jsonList = template.find(q, category);
+            q =  "select concept.json from Concept concept where concept.category=? and concept.name LIKE '%" + name + "%' and concept.name NOT LIKE '" + name + "%'";
+            jsonList.addAll(template.find(q, category));
+        }
         logger.info("Time spent for query " + (System.currentTimeMillis() - startTime));
-
-
         return parseJson(jsonList);
 
     }
@@ -86,11 +93,11 @@ public class AllConcepts {
         Iterator itr = jsonList.iterator();
         JSONParser parser = new JSONParser();
         List<JSONObject> conceptList = new ArrayList<JSONObject>();
-        JSONObject conceptJson =null;
-        while(itr.hasNext()){
+        JSONObject conceptJson = null;
+        while (itr.hasNext()) {
             String conceptStr = (String) itr.next();
             try {
-                conceptJson = (JSONObject)parser.parse(conceptStr);
+                conceptJson = (JSONObject) parser.parse(conceptStr);
                 conceptList.add(conceptJson);
             } catch (ParseException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -100,7 +107,7 @@ public class AllConcepts {
         return conceptList;
     }
 
-    public void delete(Concept concept){
+    public void delete(Concept concept) {
         template.delete(concept);
         template.flush();
     }
