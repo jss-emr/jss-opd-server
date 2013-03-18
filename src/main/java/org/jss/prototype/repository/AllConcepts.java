@@ -73,20 +73,14 @@ public class AllConcepts {
         String q = "";
         long startTime = System.currentTimeMillis();
         template.setMaxResults(limitValue);
-
         List jsonList;
-        if (name.length() <= searchByAlphaLength) {
-            q = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '" + name + "%'";
-            jsonList = template.find(q, category);
-        } else {
-            q = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '" + name + "%'";
-            jsonList = template.find(q, category);
-            q =  "select concept.json from Concept concept where concept.category=? and concept.name LIKE '%" + name + "%' and concept.name NOT LIKE '" + name + "%'";
-            jsonList.addAll(template.find(q, category));
-        }
+
+        q = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '" + name + "%'";
+        jsonList = template.find(q, category);
+        q =  "select concept.json from Concept concept where concept.category=? and concept.name LIKE '%" + name + "%' and concept.name NOT LIKE '" + name + "%'";
+        jsonList.addAll(template.find(q, category));
         logger.info("Time spent for query " + (System.currentTimeMillis() - startTime));
         return parseJson(jsonList);
-
     }
 
     private List<JSONObject> parseJson(List jsonList) {
