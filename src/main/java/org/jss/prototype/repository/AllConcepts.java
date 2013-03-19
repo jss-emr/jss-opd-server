@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Repository
 @Transactional
@@ -75,12 +77,31 @@ public class AllConcepts {
         template.setMaxResults(limitValue);
         List jsonList;
 
+
+
         q = "select concept.json from Concept concept where concept.category=? and concept.name LIKE '" + name + "%'";
         jsonList = template.find(q, category);
-        q =  "select concept.json from Concept concept where concept.category=? and concept.name LIKE '%" + name + "%' and concept.name NOT LIKE '" + name + "%'";
+        q =  "select concept.json from Concept concept where concept.category=? and concept.name NOT LIKE '" + name + "%' and " + containsQueryCondition(name);
         jsonList.addAll(template.find(q, category));
         logger.info("Time spent for query " + (System.currentTimeMillis() - startTime));
         return parseJson(jsonList);
+    }
+
+    private List<String> splitIntoWords(String name) {
+        List<String> result = new ArrayList<>();
+        StringTokenizer stringTokenizer = new StringTokenizer(name, " ", false);
+        while (stringTokenizer.hasMoreElements())
+            result.add(stringTokenizer.nextToken());
+        return result;
+    }
+
+    private String containsQueryCondition(String key) {
+        List<String> queryParts = new ArrayList<>();
+        List<String> keywords = splitIntoWords(key);
+        for (String keyword : keywords) {
+            queryParts.add("concept.name like '%" + keyword + "%'");
+        }
+        return StringUtils.collectionToDelimitedString(queryParts, " and ");
     }
 
     private List<JSONObject> parseJson(List jsonList) {
